@@ -219,12 +219,6 @@ O site foi desenvolvido com foco em:
 - **Segurança**: Links para plataformas confiáveis
 - **Engajamento**: Design atrativo e funcionalidades interativas
 
-## 📞 Contato
-
-- **Email**: contato@desenhosinfantis.com
-- **Telefone**: (11) 99999-9999
-- **Localização**: São Paulo, Brasil
-
 ## 📄 Licença
 
 Este projeto é de uso educacional e demonstrativo. Todos os direitos dos desenhos animados pertencem aos seus respectivos criadores e distribuidores.
