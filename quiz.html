@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz dos Desenhos | Mundo dos Desenhos</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpolygon points='32,6 39,24 58,24 42,36 48,54 32,43 16,54 22,36 6,24 25,24' fill='%23FFD600' stroke='%23FFB300' stroke-width='2'/%3E%3Ccircle cx='27' cy='28' r='2' fill='%23222222'/%3E%3Ccircle cx='37' cy='28' r='2' fill='%23222222'/%3E%3Cpath d='M27 36 Q32 40 37 36' stroke='%23222222' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e3e7ed 100%);
+            color: #222;
+            min-height: 100vh;
+            min-height: 100dvh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .site-header {
+            width: 100%;
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0.5rem 0 1.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .site-title {
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #222;
+            letter-spacing: -1px;
+        }
+        @media (max-width: 600px) {
+            .site-title { font-size: 1.2rem; }
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            margin: 3.5rem auto 0 auto;
+            padding: 3rem 2rem 2.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 60vh;
+            gap: 2.2rem;
+        }
+        main.container {
+            flex: 1 0 auto;
+        }
+        .back-btn {
+            margin-bottom: 2.2rem !important;
+        }
+        #selection-screen, #quiz-screen, #results-screen {
+            margin-bottom: 2.2rem;
+        }
+        h1, h2 {
+            margin-bottom: 24px;
+            font-weight: 800;
+            color: #1a1a1a;
+        }
+        p { font-size: 1.1rem; margin-bottom: 24px; }
+        .hidden { display: none; }
+        #theme-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+        .theme-btn {
+            padding: 18px 10px;
+            font-size: 1.05rem;
+            font-family: 'Inter', Arial, sans-serif;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            color: white;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+        }
+        .theme-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.13);
+        }
+        .blippi { background-color: #f07b3f; }
+        .bluey { background-color: #4a90e2; }
+        .cocomelon { background-color: #7ed321; }
+        .curious-george { background-color: #f5a623; }
+        .octonauts { background-color: #00bcd4; }
+        .paw-patrol { background-color: #d0021b; }
+        .peppa-pig { background-color: #f781be; }
+        #quiz-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            margin-bottom: 24px;
+            color: #555;
+        }
+        #question-text {
+            font-size: 1.3rem;
+            margin-bottom: 32px;
+            min-height: 44px;
+        }
+        #answer-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+        .answer-btn {
+            padding: 16px;
+            font-size: 1.08rem;
+            font-family: 'Inter', Arial, sans-serif;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+        .answer-btn:hover:not([disabled]) {
+            background-color: #e0e0e0;
+        }
+        .answer-btn.correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .answer-btn.incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .answer-btn:disabled { cursor: not-allowed; }
+        #feedback-text {
+            margin-top: 24px;
+            font-size: 1.1rem;
+            min-height: 24px;
+            margin-bottom: 18px;
+        }
+        #next-btn {
+            margin-top: 18px;
+            padding: 15px 40px;
+            font-size: 1.08rem;
+            font-family: 'Inter', Arial, sans-serif;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            background-color: #5d5dff;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        #next-btn:hover { background-color: #4b4be0; }
+        #final-score { font-size: 1.4rem; margin: 32px 0 32px 0; }
+        #play-again-btn {
+            padding: 15px 40px;
+            font-size: 1.08rem;
+            font-family: 'Inter', Arial, sans-serif;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            background-color: #ff9f43;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            margin-bottom: 18px;
+        }
+        #play-again-btn:hover { background-color: #e68e36; }
+        .footer-minimal {
+            background: #181818;
+            color: #fff;
+            text-align: center;
+            padding: 2rem 0 0.5rem 0;
+            margin-top: auto;
+        }
+        .footer-minimal a { color: #4fc3f7; text-decoration: none; }
+        .footer-minimal a:hover { text-decoration: underline; }
+        .footer-bottom { font-size: 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        @media (max-width: 700px) {
+            .container { padding: 10px 2px; }
+            #theme-buttons { gap: 10px; }
+            #answer-buttons { gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="logo-container">
+            <span class="site-title">Mundo dos Desenhos</span>
+        </div>
+    </header>
+    <main class="container">
+        <a href="index.html" class="back-btn" style="margin-bottom:1.5rem;display:inline-block;background:#f8fafc;color:#007AFF;text-decoration:none;padding:0.7rem 1.5rem;border-radius:12px;font-weight:600;border:1px solid #b2dfdb;transition:background 0.2s, color 0.2s;">← Voltar para o site</a>
+        <!-- Tela de Seleção de Tema -->
+        <div id="selection-screen">
+            <h1>Quiz dos Desenhos!</h1>
+            <p>Escolha um tema para começar:</p>
+            <div id="theme-buttons"></div>
+        </div>
+        <!-- Tela do Quiz -->
+        <div id="quiz-screen" class="hidden">
+            <h2 id="quiz-title"></h2>
+            <div id="quiz-header">
+                <span id="question-counter"></span>
+                <span id="score-text"></span>
+            </div>
+            <div id="question-text"></div>
+            <div id="answer-buttons"></div>
+            <p id="feedback-text"></p>
+            <button id="next-btn" class="hidden">Próxima</button>
+        </div>
+        <!-- Tela de Resultados -->
+        <div id="results-screen" class="hidden">
+            <h2>Fim de Jogo!</h2>
+            <p id="final-score"></p>
+            <button id="play-again-btn">Escolher Outro Quiz</button>
+        </div>
+    </main>
+    <footer class="footer-minimal">
+        <div class="footer-bottom">
+            <p>&copy; 2025 Mundo dos Desenhos. Desenvolvido por Matheus Alende
+                <a href="https://github.com/mathyess" target="_blank" style="margin-left:8px;vertical-align:middle;display:inline-flex;align-items:center;">
+                    <svg height="20" viewBox="0 0 16 16" fill="currentColor" style="margin-right:4px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.01.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.11.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+                    github.com/mathyess
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script>
+    // Temas e perguntas do quiz
+    const quizzes = {
+        'Peppa Pig': {
+            cor: 'peppa-pig',
+            perguntas: [
+                {
+                    pergunta: 'Qual é o animal da Peppa?',
+                    respostas: ['Porco', 'Cachorro', 'Coelho', 'Gato'],
+                    correta: 0
+                },
+                {
+                    pergunta: 'Qual o nome do irmão da Peppa?',
+                    respostas: ['George', 'Pedro', 'Danny', 'Richard'],
+                    correta: 0
+                },
+                {
+                    pergunta: 'O que a Peppa adora fazer?',
+                    respostas: ['Pular em poças de lama', 'Correr', 'Nadar', 'Cantar'],
+                    correta: 0
+                }
+            ]
+        },
+        'Bluey': {
+            cor: 'bluey',
+            perguntas: [
+                {
+                    pergunta: 'Qual é o animal da Bluey?',
+                    respostas: ['Cachorro', 'Gato', 'Coelho', 'Pássaro'],
+                    correta: 0
+                },
+                {
+                    pergunta: 'Qual o nome da irmã da Bluey?',
+                    respostas: ['Bingo', 'Lola', 'Mila', 'Luna'],
+                    correta: 0
+                },
+                {
+                    pergunta: 'Onde Bluey mora?',
+                    respostas: ['Austrália', 'Brasil', 'Espanha', 'Estados Unidos'],
+                    correta: 0
+                }
+            ]
+        },
+        'Paw Patrol': {
+            cor: 'paw-patrol',
+            perguntas: [
+                {
+                    pergunta: 'Quem lidera a Patrulha Canina?',
+                    respostas: ['Ryder', 'Marshall', 'Chase', 'Skye'],
+                    correta: 0
+                },
+                {
+                    pergunta: 'Qual é o lema da Patrulha Canina?',
+                    respostas: ['Nenhum trabalho é grande demais, nenhum filhote é pequeno demais!', 'Sempre alerta!', 'Vamos voar!', 'Hora da aventura!'],
+                    correta: 0
+                },
+                {
+                    pergunta: 'Qual filhote é bombeiro?',
+                    respostas: ['Marshall', 'Chase', 'Rocky', 'Zuma'],
+                    correta: 0
+                }
+            ]
+        },
+        'Cocomelon': {
+            cor: 'cocomelon',
+            perguntas: [
+                {
+                    pergunta: 'O que Cocomelon ensina?',
+                    respostas: ['Músicas educativas', 'Esportes', 'Receitas', 'Desenho'],
+                    correta: 0
+                },
+                {
+                    pergunta: 'Qual é o personagem principal do Cocomelon?',
+                    respostas: ['JJ', 'Peppa', 'Bluey', 'George'],
+                    correta: 0
+                },
+                {
+                    pergunta: 'Onde assistir Cocomelon?',
+                    respostas: ['Netflix', 'Disney+', 'Nickelodeon', 'Cartoon Network'],
+                    correta: 0
+                }
+            ]
+        },
+        'Curious George': {
+            cor: 'curious-george',
+            perguntas: [
+                {
+                    pergunta: 'Que animal é Curious George?',
+                    respostas: ['Macaco', 'Cachorro', 'Gato', 'Coelho'],
+                    correta: 0
+                },
+                {
+                    pergunta: 'O que George mais gosta de fazer?',
+                    respostas: ['Explorar e aprender', 'Dormir', 'Correr', 'Cantar'],
+                    correta: 0
+                },
+                {
+                    pergunta: 'Qual o nome do amigo de George?',
+                    respostas: ['Homem do Chapéu Amarelo', 'Ryder', 'JJ', 'Bingo'],
+                    correta: 0
+                }
+            ]
+        },
+        'Octonauts': {
+            cor: 'octonauts',
+            perguntas: [
+                {
+                    pergunta: 'O que os Octonauts exploram?',
+                    respostas: ['Oceano', 'Floresta', 'Deserto', 'Montanhas'],
+                    correta: 0
+                },
+                {
+                    pergunta: 'Qual é o animal do Capitão Barnacles?',
+                    respostas: ['Urso Polar', 'Leão', 'Golfinho', 'Tubarão'],
+                    correta: 0
+                },
+                {
+                    pergunta: 'Qual plataforma NÃO exibe Octonauts?',
+                    respostas: ['Cartoon Network', 'Netflix', 'Disney+', 'BBC iPlayer'],
+                    correta: 0
+                }
+            ]
+        }
+    };
+
+    // Elementos do DOM
+    const selectionScreen = document.getElementById('selection-screen');
+    const themeButtonsDiv = document.getElementById('theme-buttons');
+    const quizScreen = document.getElementById('quiz-screen');
+    const quizTitle = document.getElementById('quiz-title');
+    const questionCounter = document.getElementById('question-counter');
+    const scoreText = document.getElementById('score-text');
+    const questionText = document.getElementById('question-text');
+    const answerButtons = document.getElementById('answer-buttons');
+    const feedbackText = document.getElementById('feedback-text');
+    const nextBtn = document.getElementById('next-btn');
+    const resultsScreen = document.getElementById('results-screen');
+    const finalScore = document.getElementById('final-score');
+    const playAgainBtn = document.getElementById('play-again-btn');
+
+    let currentQuiz = null;
+    let currentQuestion = 0;
+    let score = 0;
+
+    function renderThemeButtons() {
+        themeButtonsDiv.innerHTML = '';
+        Object.keys(quizzes).forEach(theme => {
+            const btn = document.createElement('button');
+            btn.className = `theme-btn ${quizzes[theme].cor}`;
+            btn.textContent = theme;
+            btn.onclick = () => startQuiz(theme);
+            themeButtonsDiv.appendChild(btn);
+        });
+    }
+
+    function startQuiz(theme) {
+        currentQuiz = quizzes[theme];
+        currentQuestion = 0;
+        score = 0;
+        selectionScreen.classList.add('hidden');
+        quizScreen.classList.remove('hidden');
+        resultsScreen.classList.add('hidden');
+        quizTitle.textContent = theme;
+        showQuestion();
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    function showQuestion() {
+        const q = currentQuiz.perguntas[currentQuestion];
+        questionCounter.textContent = `Pergunta ${currentQuestion + 1} de ${currentQuiz.perguntas.length}`;
+        scoreText.textContent = `Acertos: ${score}`;
+        questionText.textContent = q.pergunta;
+        answerButtons.innerHTML = '';
+        feedbackText.textContent = '';
+        // Embaralhar respostas e guardar índice da correta
+        const respostas = q.respostas.map((r, i) => ({txt: r, idx: i}));
+        const embaralhadas = shuffleArray(respostas);
+        embaralhadas.forEach((resp, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'answer-btn';
+            btn.textContent = resp.txt;
+            btn.onclick = () => selectAnswer(resp.idx, btn);
+            answerButtons.appendChild(btn);
+        });
+        nextBtn.classList.add('hidden');
+    }
+
+    function selectAnswer(idx, btn) {
+        const q = currentQuiz.perguntas[currentQuestion];
+        const allBtns = answerButtons.querySelectorAll('button');
+        allBtns.forEach(b => b.disabled = true);
+        if (idx === q.correta) {
+            btn.classList.add('correct');
+            feedbackText.textContent = 'Correto!';
+            score++;
+        } else {
+            btn.classList.add('incorrect');
+            feedbackText.textContent = `Errado! Resposta correta: ${q.respostas[q.correta]}`;
+            allBtns[q.correta].classList.add('correct');
+        }
+        nextBtn.classList.remove('hidden');
+    }
+
+    nextBtn.onclick = () => {
+        currentQuestion++;
+        if (currentQuestion < currentQuiz.perguntas.length) {
+            showQuestion();
+        } else {
+            showResults();
+        }
+    };
+
+    function showResults() {
+        quizScreen.classList.add('hidden');
+        resultsScreen.classList.remove('hidden');
+        finalScore.textContent = `Você acertou ${score} de ${currentQuiz.perguntas.length} perguntas!`;
+    }
+
+    playAgainBtn.onclick = () => {
+        selectionScreen.classList.remove('hidden');
+        quizScreen.classList.add('hidden');
+        resultsScreen.classList.add('hidden');
+    };
+
+    // Inicialização
+    renderThemeButtons();
+    </script>
+</body>
+</html> 

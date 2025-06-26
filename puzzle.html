@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quebra-Cabeça | Mundo dos Desenhos</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpolygon points='32,6 39,24 58,24 42,36 48,54 32,43 16,54 22,36 6,24 25,24' fill='%23FFD600' stroke='%23FFB300' stroke-width='2'/%3E%3Ccircle cx='27' cy='28' r='2' fill='%23222222'/%3E%3Ccircle cx='37' cy='28' r='2' fill='%23222222'/%3E%3Cpath d='M27 36 Q32 40 37 36' stroke='%23222222' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e3e7ed 100%);
+            color: #222;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .site-header {
+            width: 100%;
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .site-title {
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #222;
+            letter-spacing: -1px;
+        }
+        @media (max-width: 600px) {
+            .site-title { font-size: 1.2rem; }
+        }
+        .main-container {
+            background-color: #fff;
+            padding: 24px 12px 20px 12px;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            text-align: center;
+            margin: 2.5rem auto 0 auto;
+            max-width: 900px;
+            width: 100%;
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        h1 {
+            color: #00796b;
+            margin-bottom: 18px;
+            font-size: 2rem;
+            font-weight: 800;
+        }
+        .puzzle-container {
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            margin-top: 2rem;
+        }
+        .pieces-container,
+        .board-container {
+            display: grid;
+            gap: 4px;
+            background-color: #b2dfdb;
+            border: 2px solid #80cbc4;
+            padding: 5px;
+            border-radius: 10px;
+            min-width: 400px !important;
+            min-height: 400px !important;
+            width: 400px !important;
+            height: 400px !important;
+        }
+        .puzzle-piece,
+        .board-slot {
+            width: 130px;
+            height: 130px;
+            background-color: #f0f0f0;
+            border: 1px dashed #ccc;
+        }
+        .puzzle-piece {
+            cursor: grab;
+            border: 2px solid #004d40;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .puzzle-piece.dragging {
+            cursor: grabbing;
+            opacity: 0.5;
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .puzzle-piece.correct {
+            border: 2px solid #4caf50;
+            cursor: default;
+        }
+        .board-slot.drag-over, .pieces-container.drag-over {
+            background-color: #a5d6a7;
+            border: 2px dashed #4caf50;
+        }
+        .win-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            z-index: 1000;
+        }
+        .win-message-box {
+            background: linear-gradient(135deg, #4caf50, #00796b);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        .win-message h2 {
+            font-size: 2.2em;
+            margin-bottom: 18px;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .win-message button {
+            padding: 13px 28px;
+            font-size: 1.08em;
+            border: none;
+            border-radius: 10px;
+            background-color: #ffffff;
+            color: #00796b;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        .win-message button:hover {
+            transform: scale(1.08);
+        }
+        .hidden { display: none; }
+        @media (max-width: 900px) {
+            .puzzle-container {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+            .pieces-container, .board-container {
+                min-width: 240px !important;
+                min-height: 240px !important;
+                width: 240px !important;
+                height: 240px !important;
+            }
+            .puzzle-piece, .board-slot {
+                width: 70px;
+                height: 70px;
+            }
+        }
+        .footer-minimal {
+            background: #181818;
+            color: #fff;
+            text-align: center;
+            padding: 2rem 0 0.5rem 0;
+            margin-top: 3rem;
+            flex-shrink: 0;
+        }
+        .footer-minimal a { color: #4fc3f7; text-decoration: none; }
+        .footer-minimal a:hover { text-decoration: underline; }
+        .footer-bottom { font-size: 1rem; }
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: #f8fafc;
+            color: #00796b;
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            border: 1px solid #b2dfdb;
+            transition: background 0.2s, color 0.2s;
+        }
+        .back-btn:hover {
+            background: #b2dfdb;
+            color: #004d40;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="logo-container">
+            <span class="site-title">Mundo dos Desenhos</span>
+        </div>
+    </header>
+    <div class="main-container">
+        <a href="index.html" class="back-btn">← Voltar para o site</a>
+        <h1>Quebra-Cabeça do Leão</h1>
+        <div class="puzzle-container">
+            <div id="pieces-container" class="pieces-container"></div>
+            <div id="board-container" class="board-container"></div>
+        </div>
+    </div>
+    <div id="win-message" class="win-message hidden">
+        <div class="win-message-box">
+            <h2>Parabéns!</h2>
+            <p>Você montou o quebra-cabeça!</p>
+            <br>
+            <button id="play-again-btn">Jogar Novamente</button>
+        </div>
+    </div>
+    <footer class="footer-minimal">
+        <div class="footer-bottom">
+            <p>&copy; 2025 Mundo dos Desenhos. Desenvolvido por Matheus Alende
+                <a href="https://github.com/mathyess" target="_blank" style="margin-left:8px;vertical-align:middle;display:inline-flex;align-items:center;">
+                    <svg height="20" viewBox="0 0 16 16" fill="currentColor" style="margin-right:4px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.01.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.11.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+                    github.com/mathyess
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script>
+        // --- ELEMENTOS DO DOM ---
+        const piecesContainer = document.getElementById('pieces-container');
+        const boardContainer = document.getElementById('board-container');
+        const winMessageDiv = document.getElementById('win-message');
+        const playAgainBtn = document.getElementById('play-again-btn');
+        const GRID_SIZE = 3;
+        const IMAGE_SRC = 'images/WildKratts.jpg';
+        let correctPieces = 0;
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        function initGame() {
+            piecesContainer.innerHTML = '';
+            boardContainer.innerHTML = '';
+            correctPieces = 0;
+            winMessageDiv.classList.add('hidden');
+            const boardSize = boardContainer.offsetWidth || 312;
+            const pieceSize = boardSize / GRID_SIZE;
+            const gridTemplate = `repeat(${GRID_SIZE}, 1fr)`;
+            piecesContainer.style.gridTemplateColumns = gridTemplate;
+            piecesContainer.style.gridTemplateRows = gridTemplate;
+            boardContainer.style.gridTemplateColumns = gridTemplate;
+            boardContainer.style.gridTemplateRows = gridTemplate;
+            const pieces = [];
+            for (let i = 0; i < GRID_SIZE * GRID_SIZE; i++) {
+                const slot = document.createElement('div');
+                slot.classList.add('board-slot');
+                slot.dataset.id = i;
+                boardContainer.appendChild(slot);
+                addDropListeners(slot);
+                const piece = document.createElement('div');
+                piece.classList.add('puzzle-piece');
+                piece.dataset.id = i;
+                piece.draggable = true;
+                const x = (i % GRID_SIZE) * pieceSize;
+                const y = Math.floor(i / GRID_SIZE) * pieceSize;
+                piece.style.backgroundImage = `url(${IMAGE_SRC})`;
+                piece.style.backgroundSize = `${boardSize}px ${boardSize}px`;
+                piece.style.backgroundPosition = `-${x}px -${y}px`;
+                piece.style.width = `${pieceSize}px`;
+                piece.style.height = `${pieceSize}px`;
+                addDragListeners(piece);
+                pieces.push(piece);
+            }
+            shuffle(pieces).forEach(piece => piecesContainer.appendChild(piece));
+        }
+        function addDragListeners(element) {
+            element.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', e.target.dataset.id);
+                setTimeout(() => e.target.classList.add('dragging'), 0);
+            });
+            element.addEventListener('dragend', e => {
+                e.target.classList.remove('dragging');
+            });
+        }
+        function addDropListeners(element) {
+            element.addEventListener('dragover', e => {
+                e.preventDefault();
+                e.target.classList.add('drag-over');
+            });
+            element.addEventListener('dragleave', e => {
+                e.target.classList.remove('drag-over');
+            });
+            element.addEventListener('drop', e => {
+                e.preventDefault();
+                e.target.classList.remove('drag-over');
+                const pieceId = e.dataTransfer.getData('text/plain');
+                const draggedPiece = document.querySelector(`.puzzle-piece[data-id='${pieceId}']`);
+                // Permitir devolver peça para o quadro de peças
+                if (element.classList.contains('pieces-container')) {
+                    if (!draggedPiece.classList.contains('correct')) {
+                        element.appendChild(draggedPiece);
+                    }
+                    return;
+                }
+                if (element.classList.contains('board-slot') && !element.hasChildNodes()) {
+                    element.appendChild(draggedPiece);
+                    if (pieceId === element.dataset.id) {
+                        draggedPiece.classList.add('correct');
+                        draggedPiece.draggable = false;
+                        correctPieces++;
+                        if (correctPieces === GRID_SIZE * GRID_SIZE) {
+                            setTimeout(() => winMessageDiv.classList.remove('hidden'), 500);
+                        }
+                    }
+                }
+            });
+        }
+        // Permitir soltar peças de volta na área de peças
+        piecesContainer.addEventListener('dragover', e => {
+            e.preventDefault();
+            piecesContainer.classList.add('drag-over');
+        });
+        piecesContainer.addEventListener('dragleave', e => {
+            piecesContainer.classList.remove('drag-over');
+        });
+        piecesContainer.addEventListener('drop', e => {
+            e.preventDefault();
+            piecesContainer.classList.remove('drag-over');
+            const pieceId = e.dataTransfer.getData('text/plain');
+            const draggedPiece = document.querySelector(`.puzzle-piece[data-id='${pieceId}']`);
+            if (!draggedPiece.classList.contains('correct')) {
+                piecesContainer.appendChild(draggedPiece);
+            }
+        });
+        playAgainBtn.addEventListener('click', initGame);
+        const img = new Image();
+        img.onload = initGame;
+        img.src = IMAGE_SRC;
+        window.addEventListener('resize', initGame);
+    </script>
+</body>
+</html> 

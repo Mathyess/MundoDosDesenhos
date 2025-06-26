@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo dos Desenhos</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpolygon points='32,6 39,24 58,24 42,36 48,54 32,43 16,54 22,36 6,24 25,24' fill='%23FFD600' stroke='%23FFB300' stroke-width='2'/%3E%3Ccircle cx='27' cy='28' r='2' fill='%23222222'/%3E%3Ccircle cx='37' cy='28' r='2' fill='%23222222'/%3E%3Cpath d='M27 36 Q32 40 37 36' stroke='%23222222' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="logo-container">
+            <span class="site-title">Mundo dos Desenhos</span>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <h2>Conteúdo Educativo para Crianças</h2>
+                <p>Descubra os melhores desenhos animados e atividades educativas para crianças de 1 a 8 anos, cuidadosamente selecionados para promover o desenvolvimento e aprendizado.</p>
+                <button class="cta-button">Explorar Conteúdo</button>
+            </div>
+            <div class="hero-decoration">
+                <div class="balloon balloon-1"></div>
+                <div class="balloon balloon-2"></div>
+                <div class="balloon balloon-3"></div>
+                <div class="balloon balloon-4"></div>
+                <div class="balloon balloon-5"></div>
+            </div>
+        </section>
+
+        <section id="desenhos" class="desenhos-section">
+            <h2>Conteúdo Recomendado</h2>
+            <div class="desenhos-grid">
+                <div class="desenho-card" data-idade="1-3">
+                    <div class="desenho-image">
+                        <img src="images/PeppaPig.jpg" alt="Peppa Pig">
+                        <div class="desenho-overlay">
+                            <span class="play-button">▶</span>
+                        </div>
+                    </div>
+                    <div class="desenho-info">
+                        <h3>Peppa Pig</h3>
+                        <p class="idade-tag">1-3 anos</p>
+                        <p>Uma porquinha adorável e sua família em aventuras divertidas que ensinam sobre amizade, família e descobertas do dia a dia.</p>
+                        <div class="tags">
+                            <span class="tag">Educativo</span>
+                            <span class="tag">Família</span>
+                            <span class="tag">Amizade</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">5.0</span>
+                        </div>
+                        <div class="platforms">
+                            <span class="platform">Netflix</span>
+                            <span class="platform">YouTube</span>
+                            <span class="platform">Disney+</span>
+                        </div>
+                        <a href="peppa-pig.html" class="ver-mais-btn">Ver Detalhes</a>
+                    </div>
+                </div>
+
+                <div class="desenho-card" data-idade="2-4">
+                    <div class="desenho-image">
+                        <img src="images/bluey.png" alt="Bluey">
+                        <div class="desenho-overlay">
+                            <span class="play-button">▶</span>
+                        </div>
+                    </div>
+                    <div class="desenho-info">
+                        <h3>Bluey</h3>
+                        <p class="idade-tag">2-4 anos</p>
+                        <p>Uma cachorrinha azul e sua família em jogos criativos que mostram como a imaginação pode transformar qualquer momento em diversão.</p>
+                        <div class="tags">
+                            <span class="tag">Criatividade</span>
+                            <span class="tag">Família</span>
+                            <span class="tag">Imaginação</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">4.9</span>
+                        </div>
+                        <div class="platforms">
+                            <span class="platform">Disney+</span>
+                            <span class="platform">ABC Kids</span>
+                            <span class="platform">YouTube</span>
+                        </div>
+                        <a href="bluey.html" class="ver-mais-btn">Ver Detalhes</a>
+                    </div>
+                </div>
+
+                <div class="desenho-card" data-idade="3-5">
+                    <div class="desenho-image">
+                        <img src="images/Patrulha Canina.jpg" alt="Paw Patrol">
+                        <div class="desenho-overlay">
+                            <span class="play-button">▶</span>
+                        </div>
+                    </div>
+                    <div class="desenho-info">
+                        <h3>Paw Patrol</h3>
+                        <p class="idade-tag">3-5 anos</p>
+                        <p>Cachorrinhos heróis que salvam o dia na cidade, mostrando o valor do trabalho em equipe e da coragem.</p>
+                        <div class="tags">
+                            <span class="tag">Aventura</span>
+                            <span class="tag">Amizade</span>
+                            <span class="tag">Heróis</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">4.8</span>
+                        </div>
+                        <div class="platforms">
+                            <span class="platform">Nickelodeon</span>
+                            <span class="platform">Netflix</span>
+                            <span class="platform">Paramount+</span>
+                        </div>
+                        <a href="paw-patrol.html" class="ver-mais-btn">Ver Detalhes</a>
+                    </div>
+                </div>
+
+                <div class="desenho-card" data-idade="4-6">
+                    <div class="desenho-image">
+                        <img src="images/octonauts.jpg" alt="Octonauts">
+                        <div class="desenho-overlay">
+                            <span class="play-button">▶</span>
+                        </div>
+                    </div>
+                    <div class="desenho-info">
+                        <h3>Octonauts</h3>
+                        <p class="idade-tag">4-6 anos</p>
+                        <p>Exploradores submarinos que descobrem criaturas marinhas em uma jornada educativa pelo fundo do oceano.</p>
+                        <div class="tags">
+                            <span class="tag">Educativo</span>
+                            <span class="tag">Ciência</span>
+                            <span class="tag">Exploração</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">4.7</span>
+                        </div>
+                        <div class="platforms">
+                            <span class="platform">Netflix</span>
+                            <span class="platform">BBC iPlayer</span>
+                            <span class="platform">Disney+</span>
+                        </div>
+                        <a href="octonauts.html" class="ver-mais-btn">Ver Detalhes</a>
+                    </div>
+                </div>
+
+                <div class="desenho-card" data-idade="5-7">
+                    <div class="desenho-image">
+                        <img src="images/Curius Georgie.jpg" alt="Curious George">
+                        <div class="desenho-overlay">
+                            <span class="play-button">▶</span>
+                        </div>
+                    </div>
+                    <div class="desenho-info">
+                        <h3>Curious George</h3>
+                        <p class="idade-tag">5-7 anos</p>
+                        <p>Um macaquinho curioso que sempre aprende algo novo, mostrando como a curiosidade pode levar a grandes descobertas.</p>
+                        <div class="tags">
+                            <span class="tag">Aventura</span>
+                            <span class="tag">Aprendizado</span>
+                            <span class="tag">Curiosidade</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">4.6</span>
+                        </div>
+                        <div class="platforms">
+                            <span class="platform">PBS Kids</span>
+                            <span class="platform">Peacock</span>
+                            <span class="platform">YouTube</span>
+                        </div>
+                        <a href="curious-george.html" class="ver-mais-btn">Ver Detalhes</a>
+                    </div>
+                </div>
+
+                <div class="desenho-card" data-idade="6-8">
+                    <div class="desenho-image">
+                        <img src="images/WildKratts.jpg" alt="Wild Kratts">
+                        <div class="desenho-overlay">
+                            <span class="play-button">▶</span>
+                        </div>
+                    </div>
+                    <div class="desenho-info">
+                        <h3>Wild Kratts</h3>
+                        <p class="idade-tag">6-8 anos</p>
+                        <p>Irmãos que exploram a natureza e os animais selvagens em uma aventura educativa pelo mundo animal.</p>
+                        <div class="tags">
+                            <span class="tag">Natureza</span>
+                            <span class="tag">Ciência</span>
+                            <span class="tag">Animais</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">4.5</span>
+                        </div>
+                        <div class="platforms">
+                            <span class="platform">PBS Kids</span>
+                            <span class="platform">Amazon Prime</span>
+                            <span class="platform">YouTube</span>
+                        </div>
+                        <a href="wild-kratts.html" class="ver-mais-btn">Ver Detalhes</a>
+                    </div>
+                </div>
+
+                <div class="desenho-card" data-idade="2-4">
+                    <div class="desenho-image">
+                        <img src="images/Cocomelon.avif" alt="Cocomelon">
+                        <div class="desenho-overlay">
+                            <span class="play-button">▶</span>
+                        </div>
+                    </div>
+                    <div class="desenho-info">
+                        <h3>Cocomelon</h3>
+                        <p class="idade-tag">2-4 anos</p>
+                        <p>Músicas divertidas e educativas que ensinam cores, números e boas maneiras através da música.</p>
+                        <div class="tags">
+                            <span class="tag">Música</span>
+                            <span class="tag">Educativo</span>
+                            <span class="tag">Cores</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">4.9</span>
+                        </div>
+                        <div class="platforms">
+                            <span class="platform">Netflix</span>
+                            <span class="platform">YouTube</span>
+                            <span class="platform">Amazon Prime</span>
+                        </div>
+                        <a href="cocomelon.html" class="ver-mais-btn">Ver Detalhes</a>
+                    </div>
+                </div>
+
+                <div class="desenho-card" data-idade="3-6">
+                    <div class="desenho-image">
+                        <img src="images/Blippi.jpg" alt="Blippi">
+                        <div class="desenho-overlay">
+                            <span class="play-button">▶</span>
+                        </div>
+                    </div>
+                    <div class="desenho-info">
+                        <h3>Blippi</h3>
+                        <p class="idade-tag">3-6 anos</p>
+                        <p>Um explorador divertido que visita lugares interessantes e ensina conceitos educativos sobre o mundo.</p>
+                        <div class="tags">
+                            <span class="tag">Educativo</span>
+                            <span class="tag">Exploração</span>
+                            <span class="tag">Aprendizado</span>
+                        </div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-text">4.7</span>
+                        </div>
+                        <div class="platforms">
+                            <span class="platform">Netflix</span>
+                            <span class="platform">YouTube</span>
+                            <span class="platform">Amazon Prime</span>
+                        </div>
+                        <a href="blippi.html" class="ver-mais-btn">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="jogos" class="jogos-section">
+            <h2>Jogos Educativos</h2>
+            <div class="jogos-grid">
+                <div class="jogo-card">
+                    <div class="jogo-image">
+                        <img src="images/Jogodamemoria.png" alt="Jogo de Memória">
+                    </div>
+                    <div class="jogo-info">
+                        <h3>Jogo da Memória</h3>
+                        <p>Encontre os pares iguais dos seus personagens favoritos e desenvolva a memória.</p>
+                        <div class="jogo-stats">
+                            <span>2-4 jogadores</span>
+                            <span>5-10 min</span>
+                        </div>
+                        <a href="memory.html" class="jogar-btn">Jogar</a>
+                    </div>
+                </div>
+
+                <div class="jogo-card">
+                    <div class="jogo-image">
+                        <img src="images/Quebracabeca.webp" alt="Quebra-Cabeça">
+                    </div>
+                    <div class="jogo-info">
+                        <h3>Quebra-Cabeça</h3>
+                        <p>Monte a imagem dos seus desenhos preferidos e desenvolva o raciocínio lógico.</p>
+                        <div class="jogo-stats">
+                            <span>1 jogador</span>
+                            <span>10-15 min</span>
+                        </div>
+                        <a href="puzzle.html" class="jogar-btn">Jogar</a>
+                    </div>
+                </div>
+
+                <div class="jogo-card">
+                    <div class="jogo-image">
+                        <img src="images/quiz.jpg" alt="Quiz">
+                    </div>
+                    <div class="jogo-info">
+                        <h3>Quiz dos Desenhos</h3>
+                        <p>Teste seus conhecimentos sobre os personagens e aprenda coisas novas.</p>
+                        <div class="jogo-stats">
+                            <span>1 jogador</span>
+                            <span>5-8 min</span>
+                        </div>
+                        <a href="quiz.html" class="jogar-btn">Jogar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-minimal">
+        <div class="footer-bottom">
+            <p>&copy; 2025 Mundo dos Desenhos. Desenvolvido por Matheus Alende
+                <a href="https://github.com/mathyess" target="_blank" style="margin-left:8px;vertical-align:middle;display:inline-flex;align-items:center;">
+                    <svg height="20" viewBox="0 0 16 16" fill="currentColor" style="margin-right:4px;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.01.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.11.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+                    github.com/mathyess
+                </a>
+            </p>
+        </div>
+    </footer>
+    
+    <!-- Botão Voltar ao Topo -->
+    <button id="back-to-top" class="back-to-top" title="Voltar ao topo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+    
+    <style>
+        .footer-minimal {
+            background: #181818;
+            color: #fff;
+            text-align: center;
+            padding: 2rem 0 0.5rem 0;
+            margin-top: 3rem;
+        }
+        .footer-minimal a { color: #4fc3f7; text-decoration: none; }
+        .footer-minimal a:hover { text-decoration: underline; }
+        .footer-bottom { font-size: 1rem; }
+        .site-header {
+            width: 100%;
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .site-title {
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #222;
+            letter-spacing: -1px;
+        }
+        
+        /* Botão Voltar ao Topo */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #000000;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .back-to-top:hover {
+            background: #333333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 600px) {
+            .site-title { font-size: 1.2rem; }
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+    
+    <script>
+        // Botão Voltar ao Topo
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        // Mostrar/ocultar botão baseado no scroll
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+        
+        // Scroll suave para o topo
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html> 
