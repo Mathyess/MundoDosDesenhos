@@ -1,6 +1,6 @@
 # 🎬 Site de Desenhos Infantis
 
-Um site moderno e responsivo para apresentar desenhos animados educativos recomendados para crianças de 1 a 8 anos, inspirado no design profissional do site do GTA VI.
+Um site moderno e responsivo para apresentar desenhos animados educativos recomendados para crianças de 1 a 8 anos.
 
 ## ✨ Características
 
